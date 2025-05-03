@@ -1,6 +1,15 @@
 import express from "express";
 const app = express();
 
+//CORS:
+import cors from "cors";
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+  })
+);
+
 //DotEnv:
 import dotenv from "dotenv";
 dotenv.config();
