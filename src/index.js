@@ -15,7 +15,9 @@ app.use(cookieParser());
 
 //Routes:
 import authRoutes from "./routes/authRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
 
 //Database:
 import { dbConnection } from "./lib/dbConfig.js";
