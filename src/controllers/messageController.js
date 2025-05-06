@@ -1,7 +1,5 @@
-import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/messageModel.js";
 import User from "../models/userModel.js";
-
 export const getSidebarUsers = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
@@ -9,9 +7,7 @@ export const getSidebarUsers = async (req, res) => {
       _id: { $ne: loggedInUserId },
     }).select("-password");
 
-    res.status(200).json({
-      filteredUsers,
-    });
+    res.status(200).json(filteredUsers);
   } catch (error) {
     console.log("Error in getSidebarUsers:", error.message);
     res.status(500).json({ error: "Internal  server error" });

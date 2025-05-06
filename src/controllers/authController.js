@@ -15,7 +15,7 @@ export const signup = async (req, res) => {
     }
     if (password.length < 6) {
       return res.status(400).json({
-        message: " Password must have at least 6 characters",
+        message: "Password must have at least 6 characters",
       });
     }
 
@@ -87,7 +87,7 @@ export const login = async (req, res) => {
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({
-      message: " Internal server error",
+      message: "Internal server error",
     });
   }
 };
@@ -118,7 +118,10 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    await cloudinary.uploader.upload(profilePic);
+    // Upload to Cloudinary
+    const uploadResponse = await cloudinary.uploader.upload(profilePic, {
+      folder: "profiles", // Optional: save images in a specific folder on Cloudinary
+    });
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
