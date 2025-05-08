@@ -1,5 +1,11 @@
 import express from "express";
-const app = express();
+import { app, server } from "./lib/socketIO.js";
+import { dbConnection } from "./lib/dbConfig.js";
+
+//DotEnv:
+import dotenv from "dotenv";
+dotenv.config();
+const PORT = process.env.PORT;
 
 //CORS:
 import cors from "cors";
@@ -9,11 +15,6 @@ app.use(
     credentials: true,
   })
 );
-
-//DotEnv:
-import dotenv from "dotenv";
-dotenv.config();
-const PORT = process.env.PORT;
 
 //To allow express to understand json:
 app.use(express.json());
@@ -29,8 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 //Database:
-import { dbConnection } from "./lib/dbConfig.js";
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("Server has started at port:", PORT);
   dbConnection();
 });
